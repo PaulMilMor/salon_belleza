@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'login_page.dart';
-
 class NuevaCita extends StatefulWidget {
   @override
   _NuevaCitaState createState() => _NuevaCitaState();
@@ -38,10 +36,7 @@ class _NuevaCitaState extends State<NuevaCita> {
   }
 
   void _logout() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
+    Navigator.popUntil(context, ModalRoute.withName('/'));
   }
 }
 

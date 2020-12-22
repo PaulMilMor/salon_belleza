@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'nueva_cita.dart';
-
 class CitasTab extends StatefulWidget {
   @override
   _CitasTabState createState() => _CitasTabState();
@@ -21,9 +19,6 @@ class _CitasTabState extends State<CitasTab> {
   }
 
   void _nuevaCita() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => NuevaCita()),
-    );
+    Navigator.pushNamed(context, '/nueva');
   }
 }

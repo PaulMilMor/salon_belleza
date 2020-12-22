@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'central_nav.dart';
+import 'nueva_cita.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,18 +9,35 @@ class MyApp extends StatelessWidget {
   static const String _title = 'Salón de Belleza';
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: LoginPage(),
-      theme: ThemeData(
-        primaryColor: Color(0xFF833995),
-        appBarTheme: AppBarTheme(
-          color: Colors.white,
-        ),
-        primaryTextTheme: TextTheme(
-          headline6: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
+          currentFocus.focusedChild.unfocus();
+        }
+      },
+      child: MaterialApp(
+        title: _title,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginPage(),
+          '/menu': (context) => HomeMenu(),
+          '/nueva': (context) => NuevaCita(),
+        },
+        //al usar rutas no se define la propiedad home
+        //home: LoginPage(),
+        theme: ThemeData(
+          primaryColor: Color(0xFF833995),
+          accentColor: Color(0xFFC381D3),
+          appBarTheme: AppBarTheme(
+            color: Colors.white,
+          ),
+          primaryTextTheme: TextTheme(
+            headline6: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

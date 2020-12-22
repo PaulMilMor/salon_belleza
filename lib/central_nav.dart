@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'catalogo_tab.dart';
 import 'citas_tab.dart';
 import 'historial_tab.dart';
-import 'login_page.dart';
 
 class HomeMenu extends StatefulWidget {
   HomeMenu({Key key}) : super(key: key);
@@ -63,9 +62,6 @@ class _HomeMenuState extends State<HomeMenu> {
   }
 
   void _logout() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
+    Navigator.popUntil(context, ModalRoute.withName('/'));
   }
 }
