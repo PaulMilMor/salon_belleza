@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+//
+import 'models.dart';
 
 class CatalogoTab extends StatefulWidget {
   @override
@@ -29,13 +31,13 @@ class _CatalogoTabState extends State<CatalogoTab> {
     return Container(
       child: ListView.builder(
         padding: EdgeInsets.all(8.0),
-        itemBuilder: (_, int index) => _crearLista()[index],
-        itemCount: _crearLista().length,
+        itemBuilder: (_, int index) => _crearListaServicio()[index],
+        itemCount: _crearListaServicio().length,
       ),
     );
   }
 
-  List<_InfoServicio> _crearLista() {
+  List<_InfoServicio> _crearListaServicio() {
     var catalogoInfo = <_InfoServicio>[];
     for (ServicioBelleza servicio in _catalogo) {
       catalogoInfo.add(_InfoServicio(servicio: servicio));
@@ -61,10 +63,10 @@ class _InfoServicio extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(this.servicio.img),
                     radius: 50,
+                    backgroundColor: Color(0xFFC381D3),
                   ),
                 ),
                 Expanded(
-                  flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -95,17 +97,4 @@ class _InfoServicio extends StatelessWidget {
           ],
         ));
   }
-}
-
-class ServicioBelleza {
-  ServicioBelleza({
-    @required this.nombre,
-    @required this.descripcion,
-    @required this.precio,
-    @required this.img,
-  });
-  String nombre;
-  String descripcion;
-  String precio;
-  String img;
 }

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+//
+import 'models.dart';
 
 class NuevaCita extends StatefulWidget {
+  NuevaCita({this.cita});
+  final Cita cita;
   @override
-  _NuevaCitaState createState() => _NuevaCitaState();
+  _NuevaCitaState createState() => _NuevaCitaState(cita: this.cita);
 }
 
 class _NuevaCitaState extends State<NuevaCita> {
+  _NuevaCitaState({this.cita});
+  final Cita cita;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +34,7 @@ class _NuevaCitaState extends State<NuevaCita> {
         child: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            _FormNuevaCita(),
+            _FormNuevaCita(citaa: cita),
           ],
         ),
       ),
@@ -41,16 +47,37 @@ class _NuevaCitaState extends State<NuevaCita> {
 }
 
 class _FormNuevaCita extends StatefulWidget {
+  _FormNuevaCita({this.citaa});
+  final Cita citaa;
   @override
-  __FormNuevaCitaState createState() => __FormNuevaCitaState();
+  __FormNuevaCitaState createState() => __FormNuevaCitaState(citaa: this.citaa);
 }
 
 class __FormNuevaCitaState extends State<_FormNuevaCita> {
+  __FormNuevaCitaState({this.citaa});
+  final Cita citaa;
   final _formKey = GlobalKey<FormState>();
   DateTime _selectedDate;
   TimeOfDay _selectedTime;
+  TextEditingController _nameTextEditingController = TextEditingController();
   TextEditingController _dateTextEditingController = TextEditingController();
   TextEditingController _timeTextEditingController = TextEditingController();
+  TextEditingController _phoneTextEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _nameTextEditingController.text = citaa == null ? null : this.citaa.nombre;
+    _dateTextEditingController
+      ..text =
+          citaa == null ? null : DateFormat.yMMMd().format(this.citaa.fecha)
+      ..selection = TextSelection.fromPosition(TextPosition(
+          offset: _dateTextEditingController.text.length,
+          affinity: TextAffinity.upstream));
+    _timeTextEditingController.text = citaa == null ? null : this.citaa.hora;
+    _phoneTextEditingController.text =
+        citaa == null ? null : this.citaa.telefono;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +90,8 @@ class __FormNuevaCitaState extends State<_FormNuevaCita> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextFormField(
+              //initialValue: citaa == null ? null : citaa.nombre,
+              controller: _nameTextEditingController,
               keyboardType: TextInputType.name,
               textCapitalization: TextCapitalization.words,
               decoration: const InputDecoration(
@@ -74,6 +103,8 @@ class __FormNuevaCitaState extends State<_FormNuevaCita> {
                   value.trim().isEmpty ? 'Introduce el nombre' : null,
             ),
             TextFormField(
+              //initialValue:
+              //    citaa == null ? null : DateFormat.yMMMd().format(citaa.fecha),
               focusNode: AlwaysDisabledFocusNode(),
               controller: _dateTextEditingController,
               enableInteractiveSelection: false,
@@ -88,6 +119,8 @@ class __FormNuevaCitaState extends State<_FormNuevaCita> {
               },
             ),
             TextFormField(
+
+                //initialValue: citaa == null ? null : citaa.hora,
                 focusNode: AlwaysDisabledFocusNode(),
                 controller: _timeTextEditingController,
                 enableInteractiveSelection: false,
@@ -101,6 +134,8 @@ class __FormNuevaCitaState extends State<_FormNuevaCita> {
                   _selectTime(context);
                 }),
             TextFormField(
+              //initialValue: citaa == null ? null : citaa.telefono,
+              controller: _phoneTextEditingController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 icon: Icon(Icons.local_phone),
@@ -126,7 +161,7 @@ class __FormNuevaCitaState extends State<_FormNuevaCita> {
                         child: Text('Cancelar'),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context);
                       },
                     ),
                   ),
@@ -134,8 +169,8 @@ class __FormNuevaCitaState extends State<_FormNuevaCita> {
                     style: ElevatedButton.styleFrom(primary: Color(0xFF833995)),
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Cita guardada')));
+                        Navigator.pop(context, true);
+
                         //Navigator.of(context).pop();
                       }
                     },
