@@ -68,7 +68,7 @@ class _HistorialTabState extends State<HistorialTab> {
               ),
             ),
           ),
-          Divider(height: 1.0),
+          Divider(height: 2.0),
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.all(8.0),

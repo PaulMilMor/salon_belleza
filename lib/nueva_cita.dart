@@ -20,7 +20,7 @@ class _NuevaCitaState extends State<NuevaCita> {
         iconTheme: IconThemeData(
           color: Colors.black,
         ),
-        title: Text("Agendar Cita"),
+        title: Text(cita == null ? 'Agendar Cita' : 'Editar Cita'),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
@@ -136,7 +136,7 @@ class __FormNuevaCitaState extends State<_FormNuevaCita> {
             TextFormField(
               //initialValue: citaa == null ? null : citaa.telefono,
               controller: _phoneTextEditingController,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.phone,
               decoration: const InputDecoration(
                 icon: Icon(Icons.local_phone),
                 labelText: 'Teléfono',

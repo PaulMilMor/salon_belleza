@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 //
 import 'models.dart';
 import 'nueva_cita.dart';
+import 'pago_dialog.dart';
 
 class CitasTab extends StatefulWidget {
   @override
@@ -170,9 +171,24 @@ class __InfoCitaState extends State<_InfoCita> {
         _editarCita(context, this.cita);
         break;
       case 'Pagar':
+        _registrarPago(context);
+
         break;
       case 'Eliminar':
         break;
+    }
+  }
+
+  _registrarPago(BuildContext context) async {
+    bool resultado = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return PagoDialog();
+        });
+    if (resultado) {
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text('Se registró el pago.')));
     }
   }
 
