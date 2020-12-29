@@ -1,47 +1,78 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+//
 import 'central_nav.dart';
+import 'login_page.dart';
+import 'firebase_metodos.dart';
 import 'nueva_cita.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   static const String _title = 'Salón de Belleza';
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus &&
-            currentFocus.focusedChild != null) {
-          currentFocus.focusedChild.unfocus();
-        }
-      },
-      child: MaterialApp(
-        title: _title,
-        initialRoute: '/',
-        routes: {
-          '/': (context) => LoginPage(),
-          '/menu': (context) => HomeMenu(),
-          '/nueva': (context) => NuevaCita(),
+    return MultiProvider(
+      providers: [
+        Provider<FirebaseProvider>(
+          create: (_) => FirebaseProvider(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) => context.read<FirebaseProvider>().authState,
+        )
+      ],
+      child: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus &&
+              currentFocus.focusedChild != null) {
+            currentFocus.focusedChild.unfocus();
+          }
         },
-        //al usar rutas no se define la propiedad home
-        //home: LoginPage(),
-        theme: ThemeData(
-          primaryColor: Color(0xFF833995),
-          accentColor: Color(0xFFC381D3),
-          appBarTheme: AppBarTheme(
-            color: Colors.white,
-          ),
-          primaryTextTheme: TextTheme(
-            headline6: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+        child: MaterialApp(
+          title: _title,
+          home: Autenticar(),
+          //initialRoute: firebaseUser != null ? 'menu' : '/',
+          routes: {
+            '/login': (context) => LoginPage(),
+            '/menu': (context) => HomeMenu(),
+            '/nueva': (context) => NuevaCita(),
+          },
+          //al usar rutas no se define la propiedad home
+          //home: LoginPage(),
+          theme: ThemeData(
+            primaryColor: Color(0xFF833995),
+            accentColor: Color(0xFFC381D3),
+            appBarTheme: AppBarTheme(
+              color: Colors.white,
+            ),
+            primaryTextTheme: TextTheme(
+              headline6: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+}
+
+class Autenticar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final usuario = context.watch<User>();
+    if (usuario != null) {
+      return HomeMenu();
+    }
+    return LoginPage();
   }
 }
 

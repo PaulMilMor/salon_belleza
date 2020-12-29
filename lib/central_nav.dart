@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'catalogo_tab.dart';
 import 'citas_tab.dart';
+import 'firebase_metodos.dart';
 import 'historial_tab.dart';
 import 'nueva_cita.dart';
 
@@ -20,7 +22,11 @@ class _HomeMenuState extends State<HomeMenu> {
   }
 
   final List<Widget> tabs = [CitasTab(), HistorialTab(), CatalogoTab()];
-  final List<String> titles = ['Citas Pendientes', 'Historial de Citas', 'Catálogo'];
+  final List<String> titles = [
+    'Citas Pendientes',
+    'Historial de Citas',
+    'Catálogo'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +81,8 @@ class _HomeMenuState extends State<HomeMenu> {
   }
 
   void _logout() {
-    Navigator.popUntil(context, ModalRoute.withName('/'));
+    context.read<FirebaseProvider>().cerrarSesion();
+    //Navigator.popUntil(context, ModalRoute.withName('/login'));
   }
 
   _nuevaCita(BuildContext context) async {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 //
+import 'firebase_metodos.dart';
 import 'models.dart';
 
 class NuevaCita extends StatefulWidget {
@@ -42,7 +44,8 @@ class _NuevaCitaState extends State<NuevaCita> {
   }
 
   void _logout() {
-    Navigator.popUntil(context, ModalRoute.withName('/'));
+    context.read<FirebaseProvider>().cerrarSesion();
+    Navigator.pop(context);
   }
 }
 
