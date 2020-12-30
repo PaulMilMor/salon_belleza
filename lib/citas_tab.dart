@@ -17,12 +17,14 @@ class _CitasTabState extends State<CitasTab> {
       fecha: DateTime.utc(2020, 12, 31),
       hora: '10:30',
       telefono: '6623642724',
+      id: '1',
     ),
     Cita(
       nombre: 'José Paúl Millanes Morimoto',
       fecha: DateTime.utc(2020, 12, 25),
       hora: '17:40',
       telefono: '6622334455',
+      id: '2',
     ),
   ];
 

@@ -16,6 +16,7 @@ class _HistorialTabState extends State<HistorialTab> {
       hora: '10:30',
       telefono: '6623642724',
       monto: '500',
+      id: '1',
     ),
     Cita(
       nombre: 'Felix Gutierrez',
@@ -23,6 +24,7 @@ class _HistorialTabState extends State<HistorialTab> {
       hora: '10:30',
       telefono: '6622048032',
       monto: '420',
+      id: '2',
     ),
     Cita(
       nombre: 'faro',
@@ -30,6 +32,7 @@ class _HistorialTabState extends State<HistorialTab> {
       hora: '10:30',
       telefono: '6622334455',
       monto: '1222',
+      id: '3',
     ),
   ];
   String dropdownValue = 'Todo el historial';

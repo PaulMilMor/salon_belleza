@@ -10,6 +10,7 @@ class CatalogoTab extends StatefulWidget {
 class _CatalogoTabState extends State<CatalogoTab> {
   List<ServicioBelleza> _catalogo = [
     ServicioBelleza(
+      id: '1',
       nombre: 'Cortes',
       descripcion:
           'Se realizan todo tipo de cortes de cabello para todos los públicos.',
@@ -18,6 +19,7 @@ class _CatalogoTabState extends State<CatalogoTab> {
           'https://firebasestorage.googleapis.com/v0/b/salon-de-belleza-91c7f.appspot.com/o/Cat%C3%A1logo%2Fcorte.jpg?alt=media&token=e66af3c9-af0a-4b68-b16d-ff336da8a47f',
     ),
     ServicioBelleza(
+      id: '2',
       nombre: 'Secado',
       descripcion: 'Se aplica un secado de cabello total',
       precio: '\$40',

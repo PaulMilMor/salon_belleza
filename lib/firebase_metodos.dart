@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'models.dart';
 //final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class FirebaseProvider {
@@ -8,7 +10,6 @@ class FirebaseProvider {
   FirebaseProvider(this.auth);
 
   Stream<User> get authState => auth.idTokenChanges();
-
   Future<String> iniciarSesion({String correo, String contra}) async {
     try {
       await auth.signInWithEmailAndPassword(email: correo, password: contra);
